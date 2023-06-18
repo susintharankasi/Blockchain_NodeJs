@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<!-- =======Author========== Shraddha ========================= -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>BlockTrans - Transcation</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="../assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="../assets/animate.css" />
+    <link rel="stylesheet" href="../assets/tiny-slider.css" />
+    <link rel="stylesheet" href="../assets/glightbox.min.css" />
+    <link rel="stylesheet" href="../assets/main.css" />
+    <!-- ========================= Web3 Js here ========================= -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+
+</head>
+
+<style>
+    ::placeholder { 
+        color: rgb(255, 255, 255);
+        opacity: 1; 
+}
+</style>
+
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand">
+                                
+                            </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                 
+                                </ul>
+                            </div> 
+                        
+                            <!-- navbar collapse -->
+                            <div class="button">
+                                <a href="/" class="btn">Go Back To Home</a>
+                            </div>
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Hero Area -->
+    <section class="hero-area">
+        <img class="hero-shape" src="../assets/hero-shape.svg" alt="#">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 col-md-12 col-12">
+                    <div class="hero-content">
+
+                        <h1 class="wow fadeInUp" data-wow-delay=".4s">Say goodbye
+                            to <br>idle
+                            <span>
+                                <img class="text-shape" src="../assets/text-shape.svg" alt="#">
+                                money Transcation.
+                            </span>
+                        </h1>
+                        <p class="wow fadeInUp" data-wow-delay=".2s"> 
+                        </p>
+                        <div class="button wow fadeInUp" data-wow-delay=".8s">  
+                            <a onclick="connectMetamask()" class="btn ">CONNECT TO METAMASK</a>
+                            <p id="userArea">&emsp; Status: Not connected to Metamask</p>
+                            <br>
+                            <a onclick="getBalanceApple()" class="btn ">GET BALANCE OF CONNECTCED CONTRACT</a>
+                            <p id="balanceArea">&emsp; Balance: Not Connected to Contract</p>
+                            <br>  
+                            <br>
+                            <br>
+                            <h4 style= "color: #ffaaa5;" class="wow fadeInUp" data-wow-delay=".3s">&emsp; Deposit Your Ether in Your Account</h4>                      
+                            <input class="btn " type="number" id="depositInput" placeholder="Enter Amount"><br>
+                            <br>
+                            <button onclick="depositContract()" class="btn ">SEND ETHER TO THE ACCOUNT</button><br>
+                            <br>
+                            <br>
+                            <br>
+                            <h4 style= "color: #ffaaa5;" class="wow fadeInUp" data-wow-delay=".3s">&emsp; Withdraw Your Ether from Your Account</h4>
+
+                            <input class="btn " type="text" id="addressInput" placeholder="Enter Address"> <br>
+                            <br>
+                            <input class="btn " type="number" id="amountInput" placeholder="Enter Amount"> <br>
+                            <br>
+                            <button onclick="withdraw()" class="btn ">WITHDRAW ETHER TO ANY ADDRESS</button><br> 
+                            <br>
+                        </div>
+
+                        <script>
+
+                            let account;
+                            const connectMetamask = async () => {
+                                if(window.ethereum !== "undefined") {
+                                    const accounts = await ethereum.request({method: "eth_requestAccounts"});
+                                    account = accounts[0];
+                                    document.getElementById("userArea").innerHTML = `User Account: ${account}`;
+                                }
+                            }
+                    
+                            const connectContract = async () => {
+                                const ABI = [{
+		"inputs": [],
+		"name": "deposit",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [{
+				"internalType": "address payable",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAddress",
+		"outputs": [{
+			"internalType": "address",
+			"name": "",
+			"type": "address"
+		}],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [{
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		}],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+                                const Address = "0x3d72CF56f41f9CB00725f4b5a9084d3EE7a8a218";
+                                window.web3 = await new Web3(window.ethereum);
+                                window.contract = await new window.web3.eth.Contract(ABI, Address);
+                                document.getElementById("contractArea").innerHTML = "Connected to Contract";
+                            }
+                    
+                            const getContractAccount = async () => {
+                                const data = await window.contract.methods.getAddress().call();
+                                document.getElementById("contractAccount").innerHTML = `Contract Account: ${data}`;
+                            }
+                            
+                            const getBalanceApple = async () => {
+                                const ABI = [{
+		"inputs": [],
+		"name": "deposit",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [{
+				"internalType": "address payable",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAddress",
+		"outputs": [{
+			"internalType": "address",
+			"name": "",
+			"type": "address"
+		}],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [{
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		}],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+                                const Address = "0x3d72CF56f41f9CB00725f4b5a9084d3EE7a8a218";
+                                window.web3 = await new Web3(window.ethereum);
+                                window.contract = await new window.web3.eth.Contract(ABI, Address);
+                                const data = await window.contract.methods.getBalance().call();
+                                document.getElementById("balanceArea").innerHTML = `Contract Balance: ${data}`;
+                            }
+
+                            const depositContract = async () => {
+                                const amount = document.getElementById("depositInput").value;
+                                await window.contract.methods.deposit().send({from: account, value: amount});
+                            }
+
+                            const withdraw = async () => {
+                                const ABI = [{
+		"inputs": [],
+		"name": "deposit",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [{
+				"internalType": "address payable",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAddress",
+		"outputs": [{
+			"internalType": "address",
+			"name": "",
+			"type": "address"
+		}],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [{
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		}],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+                                const Address = "0x3d72CF56f41f9CB00725f4b5a9084d3EE7a8a218";
+                                window.web3 = await new Web3(window.ethereum);
+                                window.contract = await new window.web3.eth.Contract(ABI, Address);
+                                const amount = document.getElementById("amountInput").value;
+                                const address = document.getElementById("addressInput").value;
+                                await window.contract.methods.withdraw(address, amount).send({from: account});
+                            }
+
+                        </script>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12">
+                    <div class="hero-image">
+                        <img class="main-image" src="../assets/home2-bg.png" alt="#">
+                        <img class="h2-move-1" src="../assets/h2-bit-l.png" alt="#">
+                        <img class="h2-move-2" src="../assets/h2-bit-m.png" alt="#">
+                        <img class="h2-move-3" src="../assets/h2-bit-s.png" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Hero Area -->
+
+
+
+    <!-- Start Footer Area -->
+    <footer class="footer section">
+ 
+        <!-- Start Copyright Area -->
+        <div class="copyright-area">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <p class="copyright-text">© 2023 NCI- All Rights Reserved</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <p class="copyright-owner">Designed and Developed by <a href="#"
+                                    rel="nofollow" target="_blank">Shraddha</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Area -->
+    </footer>
+    <!--/ End Footer Area -->
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+    <script src="../assets/bootstrap.min.js"></script>
+    <script src="../assets/wow.min.js"></script>
+    <script src="../assets/tiny-slider.js"></script>
+    <script src="../assets/glightbox.min.js"></script>
+    <script src="../assets/count-up.min.js"></script>
+    <script src="../assets/main.js"></script>
+    <script>
+        //========= Road Map 
+        tns({
+            container: '.road-map-slider',
+            items: 1,
+            slideBy: 'page',
+            autoplay: false,
+            mouseDrag: true,
+            gutter: 0,
+            nav: true,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 2,
+                },
+                540: {
+                    items: 3,
+                },
+                768: {
+                    items: 4,
+                },
+                992: {
+                    items: 4,
+                },
+                1170: {
+                    items: 6,
+                }
+            }
+        });
+
+        //========= testimonial 
+        tns({
+            container: '.testimonial-slider',
+            items: 3,
+            slideBy: 'page',
+            autoplay: false,
+            mouseDrag: true,
+            gutter: 0,
+            nav: true,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 1,
+                },
+                768: {
+                    items: 2,
+                },
+                992: {
+                    items: 2,
+                },
+                1170: {
+                    items: 3,
+                }
+            }
+        });
+
+        //====== counter up 
+        var cu = new counterUp({
+            start: 0,
+            duration: 2000,
+            intvalues: true,
+            interval: 100,
+            append: " ",
+        });
+        cu.start();
+
+        //========= glightbox
+        GLightbox({
+            'href': 'https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM',
+            'type': 'video',
+            'source': 'youtube', //vimeo, youtube or local
+            'width': 900,
+            'autoplayVideos': true,
+        });
+
+    </script>
+</body>
+
+</html>
